@@ -32,7 +32,7 @@ public class Server {
                                 System.out.println();
                                 break;
                             case 1:
-                                if(users.autenticarUser(frame.user, frame.pass))
+                                if(users.autenticarUser(frame.user, frame.pass) && !users.getUser(frame.user).isInfetado())
                                     c.sendUser(1,"","",0,0,true,false,0,0);
                                 else
                                     c.sendUser(1,"","",0,0,false,false,0,0);
