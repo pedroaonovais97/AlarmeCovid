@@ -8,6 +8,7 @@ public class User {
     private List<Localizacao> localizacoes;
     private boolean loged;
     private boolean infetado;
+    private Localizacao localizacaoDest;
 
     public User(String username, String password, Localizacao loc){
         this.username = username;
@@ -17,6 +18,7 @@ public class User {
         localizacoes.add(loc);
         this.loged = true;
         this.infetado = false;
+        this.localizacaoDest = null;
     }
 
     public User(String username, String password, Localizacao localizacaoAtual, List<Localizacao> localizacoes,
@@ -27,6 +29,7 @@ public class User {
         this.localizacoes = localizacoes;
         this.loged = loged;
         this.infetado = infetado;
+        this.localizacaoDest = null;
     }
 
     public String getUsername() {
@@ -80,5 +83,26 @@ public class User {
 
     public void setInfetado(boolean infetado) {
         this.infetado = infetado;
+    }
+
+    public Localizacao getLocalizacaoDest() {
+        return localizacaoDest;
+    }
+
+    public void setLocalizacaoDest(Localizacao localizacaoDest) {
+        this.localizacaoDest = localizacaoDest;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", localizacaoAtual=" + localizacaoAtual +
+                ", localizacoes=" + localizacoes +
+                ", loged=" + loged +
+                ", infetado=" + infetado +
+                ", localizacaoDest=" + localizacaoDest +
+                '}';
     }
 }

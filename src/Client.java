@@ -43,7 +43,7 @@ public class Client {
                     x = sc.nextInt();
                     System.out.println("Coordenada Y:");
                     y = sc.nextInt();
-                    c.sendUser(2,username,"",x,y,true,false);
+                    c.sendUser(2,username,"",x,y,true,false,0,0);
                     break;
                 case 2:
                     System.out.println("Introduza a Localização a Procurar:");
@@ -51,7 +51,7 @@ public class Client {
                     x = sc.nextInt();
                     System.out.println("Coordenada Y:");
                     y = sc.nextInt();
-                    c.sendUser(3,username,"",x,y,true,false);
+                    c.sendUser(3,username,"",x,y,true,false,0,0);
                     f = c.receiveUser();
                     assert f.tag == 3;
                     System.out.println("Nº de Pessoas: " + f.x);
@@ -62,7 +62,7 @@ public class Client {
                     x = sc.nextInt();
                     System.out.println("Coordenada Y:");
                     y = sc.nextInt();
-                    c.sendUser(4,"","",x,y,false,false);
+                    c.sendUser(4,username,"",x,y,false,false,x,y);
                     System.out.println("Waiting...");
                     f = c.receiveUser();
                     assert f.tag == 4;
@@ -100,7 +100,7 @@ public class Client {
                     int y = sc.nextInt();
                     Localizacao loc = new Localizacao(x, y);
 
-                    c.sendUser(0, username, password, x, y, true,false);
+                    c.sendUser(0, username, password, x, y, true,false,0,0);
                     break;
 
                 case 2:
@@ -108,7 +108,7 @@ public class Client {
                     username = sc.nextLine();
                     System.out.println("Password:");
                     password = sc.nextLine();
-                    c.sendUser(1, username, password, 0, 0, false,false);
+                    c.sendUser(1, username, password, 0, 0, false,false,0,0);
                     TaggedConnection.DataFrame f = c.receiveUser();
                     assert f.tag == 1;
                     if (f.loged) {

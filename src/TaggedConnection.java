@@ -18,8 +18,10 @@ public class TaggedConnection implements AutoCloseable{
         public int y;
         public boolean loged;
         public boolean infetado;
+        public int x1;
+        public int y1;
 
-        public DataFrame(int tag,String user,String pass,int x,int y,boolean loged,boolean infetado){
+        public DataFrame(int tag,String user,String pass,int x,int y,boolean loged,boolean infetado,int x1,int y1){
             this.tag = tag;
             this.user = user;
             this.pass = pass;
@@ -27,6 +29,8 @@ public class TaggedConnection implements AutoCloseable{
             this.y = y;
             this.loged = loged;
             this.infetado = infetado;
+            this.x1 = x1;
+            this.y1 = y1;
         }
     }
 
@@ -36,7 +40,7 @@ public class TaggedConnection implements AutoCloseable{
         this.out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
     }
 
-    public void sendUser(int tag,String user,String pass,int x,int y,boolean loged,boolean inf)throws IOException{
+    public void sendUser(int tag,String user,String pass,int x,int y,boolean loged,boolean inf,int x1,int y1)throws IOException{
         try{
             wlock.lock();
             out.writeInt(tag);
@@ -46,6 +50,8 @@ public class TaggedConnection implements AutoCloseable{
             out.writeInt(y);
             out.writeBoolean(loged);
             out.writeBoolean(inf);
+            out.writeInt(x1);
+            out.writeInt(y1);
             out.flush();
         }finally{
             wlock.unlock();
@@ -61,6 +67,8 @@ public class TaggedConnection implements AutoCloseable{
         int y;
         boolean log;
         boolean inf;
+        int x1;
+        int y1;
 
         try{
             rlock.lock();
@@ -71,8 +79,10 @@ public class TaggedConnection implements AutoCloseable{
             y = in.readInt();
             log = in.readBoolean();
             inf = in.readBoolean();
+            x1 = in.readInt();
+            y1 = in.readInt();
 
-            df = new DataFrame(tag,user,pass,x,y,log,inf);
+            df = new DataFrame(tag,user,pass,x,y,log,inf,x1,y1);
         }finally{
             rlock.lock();
         }

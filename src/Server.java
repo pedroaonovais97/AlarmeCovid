@@ -2,6 +2,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Server {
@@ -11,7 +12,6 @@ public class Server {
         ServerSocket ss = new ServerSocket(12345);
         UserList users = new UserList();
         List<Localizacao> buffer = new ArrayList<>();
-        AtomicBoolean avisa = new AtomicBoolean(false);
 
         while (true) {
             Socket s = ss.accept();
@@ -33,23 +33,31 @@ public class Server {
                                 break;
                             case 1:
                                 if(users.autenticarUser(frame.user, frame.pass))
-                                    c.sendUser(1,"","",0,0,true,false);
+                                    c.sendUser(1,"","",0,0,true,false,0,0);
                                 else
-                                    c.sendUser(1,"","",0,0,false,false);
+                                    c.sendUser(1,"","",0,0,false,false,0,0);
                                 break;
                             case 2:
                                 System.out.println(frame.user + " vai para : " + "(" + frame.x + "," + frame.y + ")");
+                                int xAtual = users.getUser(frame.user).getLocalizacaoAtual().getX();
+                                int yAtual = users.getUser(frame.user).getLocalizacaoAtual().getY();
                                 users.alterarLoc(frame.user, frame.x, frame.y);
-                                Localizacao a = null;
+                                List<Localizacao> aRemover = new ArrayList<>();
                                 for(Localizacao l : buffer) {
                                     System.out.println(l);
                                     if (users.numPessoas(l.getX(), l.getY()) == 0) {
-                                            avisa.set(true);
-                                            a = l;
+                                        for(Map.Entry<String,User> uz :  users.getMap().entrySet()) {
+                                            System.out.println(uz);
+                                            if(!uz.getValue().getUsername().equals(frame.user) &&
+                                                    uz.getValue().getLocalizacaoDest().getX() == xAtual &&
+                                                    uz.getValue().getLocalizacaoDest().getY() == yAtual){
+                                                uz.getValue().setLocalizacaoDest(null);
+                                                aRemover.add(new Localizacao(xAtual,yAtual));
+                                            }
+                                        }
                                     }
                                 }
-                                if(avisa.get())
-                                    buffer.remove(a);
+                                buffer.removeAll(aRemover);
                                 System.out.println("Users: ");
                                 users.printUsers();
                                 for(Localizacao l : buffer)
@@ -58,19 +66,20 @@ public class Server {
                                 break;
                             case 3:
                                 int y = users.numPessoas(frame.x, frame.y);
-                                c.sendUser(3,"","",y,0,false,false);
+                                c.sendUser(3,"","",y,0,false,false,0,0);
                                 break;
                             case 4:
                                 loc = new Localizacao(frame.x, frame.y);
                                 if(users.numPessoas(frame.x, frame.y) == 0)
-                                    c.sendUser(4,"","",0,0,true,false);
+                                    c.sendUser(4,"","",0,0,true,false,0,0);
                                 else {
                                     buffer.add(loc);
-                                    while(!avisa.get()){
+                                    users.getUser(frame.user).setLocalizacaoDest(new Localizacao(frame.x, frame.y));
+                                    while(users.getUser(frame.user).getLocalizacaoDest() != null){
 
                                     }
-                                    c.sendUser(4,"","",0,0,true,false);
-                                    avisa.set(false);
+                                    c.sendUser(4,"","",0,0,true,false,0,0);
+                                    users.getUser(frame.user).setLocalizacaoDest(null);
                                 }
                                 break;
                         }

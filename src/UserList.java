@@ -11,9 +11,14 @@ public class UserList {
         Localizacao l2 = new Localizacao(2,2);
         Localizacao l3 = new Localizacao(3,3);
 
-        User ana = new User("Ana","ana",null,new ArrayList<>(),false,false);
-        User pedro = new User("Pedro","pedro",null,new ArrayList<>(),false,false);
-        User goncalo = new User("Goncalo","goncalo",null,new ArrayList<>(),false,false);
+        User ana = new User("Ana","ana",null,new ArrayList<>(),
+                false,false);
+
+        User pedro = new User("Pedro","pedro",null,new ArrayList<>(),
+                false,false);
+
+        User goncalo = new User("Goncalo","goncalo",null,new ArrayList<>(),
+                false,false);
 
         ana.addLocalizacao(l1);
         pedro.addLocalizacao(l2);
@@ -62,5 +67,13 @@ public class UserList {
                 count ++;
         }
         return count;
+    }
+
+    public User getUser(String user){
+        return this.users.get(user);
+    }
+
+    public Map<String,User> getMap(){
+        return this.users;
     }
 }
