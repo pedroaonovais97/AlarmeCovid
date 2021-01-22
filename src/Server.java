@@ -82,6 +82,10 @@ public class Server {
                                     users.getUser(frame.user).setLocalizacaoDest(null);
                                 }
                                 break;
+                            case 5:
+                                users.getUser(frame.user).setInfetado(true);
+                                users.printUsers();
+                                break;
                         }
                     }
                 } catch (Exception ignored) {

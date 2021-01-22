@@ -35,8 +35,10 @@ public class UserList {
 
     public void printUsers(){
         for(Map.Entry<String,User> e : this.users.entrySet()){
+            /*
             System.out.println("User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
-                    + "\nAutenticado: " + e.getValue().isLoged() + "\nLocalizações: " + e.getValue().getLocalizacoes());
+                    + "\nAutenticado: " + e.getValue().isLoged() + "\nLocalizações: " + e.getValue().getLocalizacoes());*/
+            System.out.println(e);
         }
     }
 
