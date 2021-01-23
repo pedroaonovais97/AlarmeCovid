@@ -3,7 +3,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Server {
     final static int WORKERS_PER_CONNECTION = 10;
@@ -71,14 +70,15 @@ public class Server {
                             case 4:
                                 loc = new Localizacao(frame.x, frame.y);
                                 if(users.numPessoas(frame.x, frame.y) == 0)
-                                    c.sendUser(4,"","",0,0,true,false,0,0);
+                                    c.sendUser(4,"","", loc.getX(), loc.getY(), true,false,0,0);
                                 else {
                                     buffer.add(loc);
                                     users.getUser(frame.user).setLocalizacaoDest(new Localizacao(frame.x, frame.y));
                                     while(users.getUser(frame.user).getLocalizacaoDest() != null){
 
                                     }
-                                    c.sendUser(4,"","",0,0,true,false,0,0);
+                                    c.sendUser(4,"","",loc.getX(),
+                                            loc.getY(),true,false,0,0);
                                     users.getUser(frame.user).setLocalizacaoDest(null);
                                 }
                                 break;
