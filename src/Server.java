@@ -37,31 +37,42 @@ public class Server {
                                     c.sendUser(1,"","",0,0,false,false,0,0);
                                 break;
                             case 2:
+                                System.out.println("----------------Localizar----------------");
+                                System.out.println("Current ThreadID: " + Thread.currentThread().getId());
                                 System.out.println(frame.user + " vai para : " + "(" + frame.x + "," + frame.y + ")");
                                 int xAtual = users.getUser(frame.user).getLocalizacaoAtual().getX();
                                 int yAtual = users.getUser(frame.user).getLocalizacaoAtual().getY();
                                 users.alterarLoc(frame.user, frame.x, frame.y);
                                 List<Localizacao> aRemover = new ArrayList<>();
-                                for(Localizacao l : buffer) {
-                                    System.out.println(l);
+                                for(Localizacao l : buffer) 
+                                {
+                                    System.out.println("Localizacao do buffer[x]: " + l);
                                     if (users.numPessoas(l.getX(), l.getY()) == 0) {
                                         for(Map.Entry<String,User> uz :  users.getMap().entrySet()) {
-                                            System.out.println(uz);
-                                            if(!uz.getValue().getUsername().equals(frame.user) &&
+                                            String xy = "(" + xAtual +","+ yAtual + ")";
+                                            System.out.println("Verificar se o " + uz.getValue().getUsername() + " quer vir para " + xy);
+                                            
+                                            if(!uz.getValue().getUsername().equals(frame.user) && uz.getValue().getLocalizacaoDest() != null &&
                                                     uz.getValue().getLocalizacaoDest().getX() == xAtual &&
                                                     uz.getValue().getLocalizacaoDest().getY() == yAtual){
                                                 uz.getValue().setLocalizacaoDest(null);
                                                 aRemover.add(new Localizacao(xAtual,yAtual));
+                                                System.out.println(uz.getValue().getUsername() + "quer vir para" + xy + ", logo " + xy + " é elimidado do buffer");
                                             }
+                                            else
+                                                System.out.println("Não quer vir!");
+                    
                                         }
                                     }
                                 }
                                 buffer.removeAll(aRemover);
-                                System.out.println("Users: ");
-                                users.printUsers();
+                                //System.out.println("\nUsers: ");
+                                    //users.printUsers();
+                                if(!buffer.isEmpty())
+                                    System.out.println("Buffer de Localizações desejadas:");
                                 for(Localizacao l : buffer)
                                     System.out.println(l);
-                                System.out.println("------------------------\n");
+                                System.out.println("-----------------------------------------\n");
                                 break;
                             case 3:
                                 int y = users.numPessoas(frame.x, frame.y);
@@ -69,9 +80,12 @@ public class Server {
                                 break;
                             case 4:
                                 loc = new Localizacao(frame.x, frame.y);
+
                                 if(users.numPessoas(frame.x, frame.y) == 0)
                                     c.sendUser(4,"","", loc.getX(), loc.getY(), true,false,0,0);
-                                else {
+                                else 
+                                {
+                                    System.out.println("Current ThreadID: " + Thread.currentThread().getId());
                                     buffer.add(loc);
                                     users.getUser(frame.user).setLocalizacaoDest(new Localizacao(frame.x, frame.y));
                                     while(users.getUser(frame.user).getLocalizacaoDest() != null){

@@ -43,14 +43,14 @@ public class Client {
         while(i != 0 && !sair){
             sc.nextLine();
             switch (i) {
-                case 1 -> {
+                case 1:
                     System.out.println("Coordenada X:");
                     x = sc.nextInt();
                     System.out.println("Coordenada Y:");
                     y = sc.nextInt();
                     c.sendUser(2, username, "", x, y, true, false, 0, 0);
-                }
-                case 2 -> {
+                    break;
+                case 2:
                     try {
                         System.out.println("Introduza a Localização a Procurar:");
                         System.out.println("Coordenada X:");
@@ -61,8 +61,8 @@ public class Client {
                         f = c.receiveUser(3);
                         System.out.println("Nº de Pessoas: " + f.x);
                     }catch (Exception ignored) {}
-                }
-                case 3 -> {
+                    break;
+                case 3:
                         System.out.println("Introduza a Localização a Procurar:");
                         System.out.println("Coordenada X:");
                         final int x4;
@@ -91,14 +91,15 @@ public class Client {
                                 e.printStackTrace();
                             }
                         }).start();
-
-                }
-                case 4 -> {
+                        break;                
+                case 4:
                     c.sendUser(5, username, "", 0, 0, false, true, 0, 0);
                     sair = true;
-                }
-                case 5 -> sair = true;
-                default -> System.out.println("Opção Inválida!");
+                break;
+                case 5: sair = true; break;
+                default: 
+                    System.out.println("Opção Inválida!");
+                    break;
             }
             if(!sair) {
                 displayClient();
@@ -123,7 +124,7 @@ public class Client {
         while (i != 0 && !sair) {
             sc.nextLine();
             switch (i) {
-                case 1 -> {
+                case 1:
                     System.out.println("Username:");
                     username = sc.nextLine();
                     System.out.println("Password");
@@ -133,8 +134,8 @@ public class Client {
                     System.out.println("Coordenada Y:");
                     int y = sc.nextInt();
                     c.sendUser(0, username, password, x, y, true, false, 0, 0);
-                }
-                case 2 -> {
+                break;
+                case 2:
                     System.out.println("Username:");
                     username = sc.nextLine();
                     System.out.println("Password:");
@@ -146,8 +147,10 @@ public class Client {
                         sair = menuClient(username, c);
                     } else
                         System.out.println("Não Autenticado!");
-                }
-                default -> System.out.println("Opção Inválida!");
+                break;
+                default:
+                    System.out.println("Opção Inválida!");
+                    break;
             }
             if(!sair) {
                 displayMenu();
