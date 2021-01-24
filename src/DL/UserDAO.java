@@ -1,7 +1,7 @@
 package DL;
 
-import BL.Localizacao;
-import BL.User;
+import User.Localizacao;
+import User.User;
 
 import java.util.*;
 import java.sql.*;
