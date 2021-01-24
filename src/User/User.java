@@ -1,3 +1,5 @@
+package User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class User {
     }
 
     public User(String username, String password, Localizacao localizacaoAtual, List<Localizacao> localizacoes,
-                boolean loged,boolean infetado) {
+                boolean loged, boolean infetado) {
         this.username = username;
         this.password = password;
         this.localizacaoAtual = localizacaoAtual;
@@ -95,7 +97,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "User.User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", localizacaoAtual=" + localizacaoAtual +

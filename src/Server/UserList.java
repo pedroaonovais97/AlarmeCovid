@@ -1,9 +1,14 @@
+package Server;
+
+import User.User;
+import User.Localizacao;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserList {
-    private Map<String,User> users;
+    private Map<String, User> users;
 
     public UserList() {
         this.users = new HashMap<>();
@@ -36,7 +41,7 @@ public class UserList {
     public void printUsers(){
         for(Map.Entry<String,User> e : this.users.entrySet()){
             /*
-            System.out.println("User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
+            System.out.println("User.User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
                     + "\nAutenticado: " + e.getValue().isLoged() + "\nLocalizações: " + e.getValue().getLocalizacoes());*/
             System.out.println(e);
         }

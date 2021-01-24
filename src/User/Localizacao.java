@@ -1,3 +1,5 @@
+package User;
+
 public class Localizacao {
     private int x;
     private int y;
@@ -25,7 +27,7 @@ public class Localizacao {
 
     @Override
     public String toString() {
-        return "Localizacao{" +
+        return "User.Localizacao{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';
