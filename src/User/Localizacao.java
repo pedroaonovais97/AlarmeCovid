@@ -25,6 +25,10 @@ public class Localizacao {
         this.y = y;
     }
 
+    public String toStringtoDB(){
+        return this.x + "," + this.y;
+    }
+
     @Override
     public String toString() {
         return "User.Localizacao{" +
