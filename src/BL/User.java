@@ -1,3 +1,5 @@
+package BL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +97,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "BL.User{" +
                 "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", localizacaoAtual=" + localizacaoAtual +

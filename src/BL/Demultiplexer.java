@@ -1,3 +1,5 @@
+package BL;
+
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.HashMap;
@@ -40,6 +42,7 @@ public class Demultiplexer implements AutoCloseable{
                     lock.lock();
                     try{
                         //recebe uma Entry, coloca no mapa e dá signal para avisar que algo ocorreu
+                        System.out.println("Tag: " + frame.tag);
                         Entry e = get(frame.tag);
                         e.queue.add(frame);
                         e.cond.signal();
@@ -70,14 +73,16 @@ public class Demultiplexer implements AutoCloseable{
             for(;;) {
                 if(!e.queue.isEmpty()){
                     TaggedConnection.DataFrame res= e.queue.poll();
-                    //System.out.println(res.tag);
+                    System.out.println(res.tag);
                     e.waiters--;
                     if(e.queue.isEmpty() && e.waiters == 0)
                         buf.remove(tag);
                     return res;
                 }
                 if(exception != null)
+                {
                     throw exception;
+                }
                 e.cond.await();
             }
         } finally {

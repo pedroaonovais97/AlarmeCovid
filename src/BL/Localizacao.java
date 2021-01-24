@@ -1,3 +1,5 @@
+package BL;
+
 public class Localizacao {
     private int x;
     private int y;
@@ -23,9 +25,13 @@ public class Localizacao {
         this.y = y;
     }
 
+    public String toStringtoDB() {
+        return x + "," + y;
+    }
+
     @Override
     public String toString() {
-        return "Localizacao{" +
+        return "BL.Localizacao{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

@@ -1,8 +1,8 @@
+package BL;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-
-import static java.lang.Thread.currentThread;
 
 public class Client {
 
@@ -38,7 +38,6 @@ public class Client {
         TaggedConnection.DataFrame f;
         boolean sair = false;
         Thread[] threads = new Thread[10];
-        int po = 1;
 
         while(i != 0 && !sair){
             sc.nextLine();
@@ -78,7 +77,6 @@ public class Client {
                                 e.printStackTrace();
                             }
                         });*/
-                        po = 9000;
                         c.sendUser(4, username, "", x4, y4, false, false, x4, y4);
                         System.out.println("Pedido Registado!");
                         new Thread(() -> {
@@ -105,7 +103,6 @@ public class Client {
                 displayClient();
                 i = sc.nextInt();
             }
-            System.out.println(po);
         }
         return sair;
     }
@@ -141,7 +138,9 @@ public class Client {
                     System.out.println("Password:");
                     password = sc.nextLine();
                     c.sendUser(1, username, password, 0, 0, false, false, 0, 0);
+                    System.out.println("Enviou");
                     TaggedConnection.DataFrame f = c.receiveUser(1);
+                    System.out.println("ok");
                     if (f.loged) {
                         System.out.println("Autenticado!");
                         sair = menuClient(username, c);

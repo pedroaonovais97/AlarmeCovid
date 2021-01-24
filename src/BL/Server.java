@@ -1,3 +1,5 @@
+package BL;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class Server {
                                 List<Localizacao> aRemover = new ArrayList<>();
                                 for(Localizacao l : buffer) 
                                 {
-                                    System.out.println("Localizacao do buffer[x]: " + l);
+                                    System.out.println("BL.Localizacao do buffer[x]: " + l);
                                     if (users.numPessoas(l.getX(), l.getY()) == 0) {
                                         for(Map.Entry<String,User> uz :  users.getMap().entrySet()) {
                                             String xy = "(" + xAtual +","+ yAtual + ")";

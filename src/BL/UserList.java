@@ -1,3 +1,7 @@
+package BL;
+
+import DL.UserDAO;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +10,8 @@ public class UserList {
     private Map<String,User> users;
 
     public UserList() {
-        this.users = new HashMap<>();
+        //this.users = new HashMap<>();
+        this.users = UserDAO.getInstance();
         Localizacao l1 = new Localizacao(1,1);
         Localizacao l2 = new Localizacao(2,2);
         Localizacao l3 = new Localizacao(3,3);
@@ -27,6 +32,10 @@ public class UserList {
         users.put(ana.getUsername(),ana);
         users.put(pedro.getUsername(),pedro);
         users.put(goncalo.getUsername(), goncalo);
+
+        System.out.println(users.get("Ana"));
+        System.out.println(users.get("Pedro"));
+        System.out.println(users.get("Goncalo"));
     }
 
     public void addUser(User u){
@@ -36,7 +45,7 @@ public class UserList {
     public void printUsers(){
         for(Map.Entry<String,User> e : this.users.entrySet()){
             /*
-            System.out.println("User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
+            System.out.println("BL.User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
                     + "\nAutenticado: " + e.getValue().isLoged() + "\nLocalizações: " + e.getValue().getLocalizacoes());*/
             System.out.println(e);
         }

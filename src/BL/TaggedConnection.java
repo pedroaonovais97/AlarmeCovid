@@ -1,3 +1,5 @@
+package BL;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.locks.ReentrantLock;
@@ -72,7 +74,9 @@ public class TaggedConnection implements AutoCloseable{
 
         try{
             rlock.lock();
+            System.out.println("oi");
             tag = in.readInt();
+            System.out.println("io");
             user = in.readUTF();
             pass = in.readUTF();
             x = in.readInt();
@@ -83,6 +87,8 @@ public class TaggedConnection implements AutoCloseable{
             y1 = in.readInt();
 
             df = new DataFrame(tag,user,pass,x,y,log,inf,x1,y1);
+            System.out.println(tag + " " + user + " " + pass + " " + log);
+
         }finally{
             rlock.lock();
         }
