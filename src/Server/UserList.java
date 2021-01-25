@@ -5,6 +5,7 @@ import User.Localizacao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserList {
@@ -40,9 +41,6 @@ public class UserList {
 
     public void printUsers(){
         for(Map.Entry<String,User> e : this.users.entrySet()){
-            /*
-            System.out.println("User.User: " + e.getValue().getUsername() + "\nLoc: " + e.getValue().getLocalizacaoAtual()
-                    + "\nAutenticado: " + e.getValue().isLoged() + "\nLocalizações: " + e.getValue().getLocalizacoes());*/
             System.out.println(e);
         }
     }
@@ -82,5 +80,20 @@ public class UserList {
 
     public Map<String,User> getMap(){
         return this.users;
+    }
+
+    public List<String> sitiosInfetados(String user){
+        List<String> listaDeUsers  = new ArrayList<>();
+        User a = users.get(user);
+        for (Map.Entry<String,User> b : users.entrySet()){
+            System.out.println(" Usuário a ser Analisado:  " + b);
+            for(Localizacao loc : a.getLocalizacoes()) {
+                if (b.getValue().getLocalizacoes().contains(loc) && !b.getValue().getUsername().equals(user))
+                    System.out.println("Localização contaminada: " + b.getValue().getLocalizacoes());
+                    listaDeUsers.add(b.getValue().getUsername());
+                    System.out.println("Usuário adicionado: " + b.getValue().getUsername());
+            }
+        }
+        return listaDeUsers;
     }
 }

@@ -27,7 +27,6 @@ public class ServerWorker {
                 try (c) {
                     for (; ; ) {
                         TaggedConnection.DataFrame frame = c.receiveUser();
-                        int tag = frame.tag;
                         switch (frame.tag) {
                             case 0:
                                 Localizacao loc = new Localizacao(frame.x, frame.y);
@@ -38,10 +37,11 @@ public class ServerWorker {
                                 System.out.println();
                                 break;
                             case 1:
-                                if (users.autenticarUser(frame.user, frame.pass) && !users.getUser(frame.user).isInfetado())
-                                    c.sendUser(1, "", "", 0, 0, true, false, 0, 0);
+                                if (users.autenticarUser(frame.user, frame.pass) && !users.getUser(frame.user).isInfetado()) {
+                                    c.sendUser(1, "User", "Pass", 0, 0, true, false, 0, 0);
+                                }
                                 else
-                                    c.sendUser(1, "", "", 0, 0, false, false, 0, 0);
+                                    c.sendUser(1, "User", "Pass", 0, 0, false, false, 0, 0);
                                 break;
                             case 2:
                                 System.out.println("----------------Localizar----------------");
@@ -71,8 +71,6 @@ public class ServerWorker {
                                     }
                                 }
                                 buffer.removeAll(aRemover);
-                                //System.out.println("\nUsers: ");
-                                //users.printUsers();
                                 if (!buffer.isEmpty())
                                     System.out.println("Buffer de Localizações desejadas:");
                                 for (Localizacao l : buffer)
@@ -103,6 +101,12 @@ public class ServerWorker {
                             case 5:
                                 users.getUser(frame.user).setInfetado(true);
                                 users.printUsers();
+                                break;
+                            case 6:
+                                for(String a : users.sitiosInfetados(frame.user)){
+                                    System.out.println(a);
+                                    c.sendUser(6,a,"",0,0,true,true,0,0);
+                                }
                                 break;
                         }
                     }

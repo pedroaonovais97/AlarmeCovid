@@ -16,6 +16,16 @@ public class ClientLN {
         TaggedConnection.DataFrame f;
         boolean sair = false;
 
+
+        new Thread(() -> {
+            try {
+                TaggedConnection.DataFrame as = c.receiveUser(6);
+                System.out.println(as);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         while (i != 0 && !sair) {
             sc.nextLine();
             switch (i) {
@@ -25,7 +35,6 @@ public class ClientLN {
                     System.out.println("Coordenada Y:");
                     y = sc.nextInt();
                     c.sendUser(2, username, "", x, y, true, false, 0, 0);
-                    break;
                 case 2:
                     try {
                         System.out.println("Introduza a Localização a Procurar:");
@@ -59,9 +68,11 @@ public class ClientLN {
                             e.printStackTrace();
                         }
                     }).start();
+                    Thread.sleep(500);
                     break;
                 case 4:
                     c.sendUser(5, username, "", 0, 0, false, true, 0, 0);
+                    c.sendUser(6, username, "", 0, 0, false, true, 0, 0);
                     sair = true;
                     break;
                 case 5:
